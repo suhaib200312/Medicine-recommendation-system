@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Care Center</title>
+    <!-- Use Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: linear-gradient(135deg, #ff7a8b, #ff8c42);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #0066cc;
+            border-bottom: 4px solid #ffffff;
+        }
+
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff5722;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .hero {
+            background-image:
+            background-colour:  linear-gradient(to right, #5f2c82, #49a09d);
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #0066cc;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #004c99;
+        }
+
+        .btn-danger {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background-color: #0066cc;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #ff5722;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .features {
+            background-color: #e9f7fa;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .feature-card {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .feature-card h5 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+        }
+
+        /* Custom modal styles */
+        .modal-header {
+            background-color: #020606;
+            color: white;
+        }
+
+        .modal-body {
+            background-color: #f8f9fa;
+        }
+
+        .toggle-button {
+            padding: 4px;
+            margin: 5px 40px 5px 0;
+            font-size: 20px;
+            font-weight: bold;
+            width: 140px;
+            border-radius: 5px;
+        }
+
+        .toggle-button:hover {
+            opacity: 0.8;
+        }
+
+        /* Modal Specific */
+        .modal-dialog {
+            max-width: 700px;
+        }
+
+        @media (max-width: 767px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .service-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="Health Care Logo" class="logo">
+                <a class="navbar-brand" href="#">Health Center</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/developer">Developer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to Health Care Center</h1>
+        <p>Your health, our priority. Offering quality medical services at your fingertips.</p>
+    </div>
+     <style>
+        /* Night Sky Theme */
+        .scrolling-text {
+            background-color: #2C3E50;
+            color: #ECF0F1;
+            padding: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #1ABC9C;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .scrolling-text-inner {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scrollText 15s linear infinite;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .scrolling-text-inner p {
+            white-space: nowrap;
+            margin: 0;
+            text-shadow: 0 0 10px #1ABC9C, 0 0 20px #1ABC9C;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scrolling-text">
+        <div class="scrolling-text-inner">
+            <p>Stay updated with the latest health tips and care news. Follow us on our social media channels!</p>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Bootstrap CSS for Responsive Layout -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #5f2c82, #49a09d); /* Gradient background */
+            color: #fff;
+            padding: 50px 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            max-width: 600px;
+            margin: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #1e3a8a;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            transition: border 0.3s ease;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+        }
+
+        .btn {
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Custom styles for the "Start Speech Recognition" button */
+        .btn-outline-primary {
+            background: linear-gradient(135deg, #66a6ff, #89f7fe);
+            color: #fff;
+            border: none;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #4fa3f7, #63e1f9);
+        }
+
+        /* Custom styles for the "Predict" button */
+        .btn-danger {
+            background-color: #ff6f61;
+            border: none;
+            color: white;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background-color: #e04e3a;
+            transform: translateY(-5px);
+        }
+
+        /* Styling for the transcription box */
+        #transcription {
+            padding: 15px;
+            background: #e1f5fe;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        #startSpeechRecognition {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            text-transform: capitalize;
+            background: #4fa3f7;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .speech-icon {
+            margin-right: 10px;
+        }
+
+        /* Smooth transition for form elements */
+        .form-group, .btn, #startSpeechRecognition {
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover, .btn:hover, #startSpeechRecognition:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Container animation */
+        .container {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Keyframes for container animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Symptom Checker</h2>
+        <form action="/predict" method="post">
+            <div class="form-group mb-4">
+                <label for="symptoms">Select Symptoms:</label>
+                <input type="text" class="form-control form-control-lg" id="symptoms" name="symptoms" placeholder="E.g., itching, fever, headache..." required>
+            </div>
+
+            <!-- Speech Recognition Button -->
+            <div class="d-flex justify-content-center mb-4">
+                <button type="button" id="startSpeechRecognition" class="btn">
+                    <i class="fas fa-microphone speech-icon"></i> Start Speech Recognition
+                </button>
+            </div>
+
+            <!-- Display transcription results -->
+            <div id="transcription" class="d-none">
+                <strong>Transcription:</strong> <span id="speechResult"></span>
+            </div>
+
+            <!-- Display any message passed from server -->
+            {% if message %}
+                <div class="alert alert-info text-center">
+                    <strong>Note: </strong>{{ message }}
+                </div>
+            {% endif %}
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger btn-lg">Predict</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Optional: Add Bootstrap JS and Popper.js for Tooltips and Interactive Components -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- Optional: Add JavaScript for Speech Recognition -->
+    <script>
+        const startButton = document.getElementById('startSpeechRecognition');
+        const transcriptionDiv = document.getElementById('transcription');
+        const speechResultSpan = document.getElementById('speechResult');
+
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        startButton.addEventListener('click', function() {
+            recognition.start();
+        });
+
+        recognition.onresult = function(event) {
+            let transcription = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                transcription += event.results[i][0].transcript;
+            }
+            speechResultSpan.textContent = transcription;
+            transcriptionDiv.classList.remove('d-none');
+        };
+
+        recognition.onerror = function(event) {
+            speechResultSpan.textContent = 'Error occurred: ' + event.error;
+        };
+    </script>
+
+    {% if predicted_disease %}
+    <!-- Results -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS (Latest version) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Basic Reset */
+        body, h1, h5, p, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .text-primary {
+            color: #007BFF !important;
+        }
+
+        .result-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .toggle-button {
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            margin: 10px;
+        }
+
+        .toggle-button:hover {
+            opacity: 0.85;
+            transform: translateY(-5px);
+        }
+
+        .toggle-button i {
+            font-size: 20px;
+        }
+
+        .modal-header {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .modal-header.bg-primary {
+            background-color: #007BFF;
+        }
+
+        .modal-header.bg-info {
+            background-color: #17a2b8;
+        }
+
+        .modal-header.bg-danger {
+            background-color: #dc3545;
+        }
+
+        .modal-header.bg-warning {
+            background-color: #ffc107;
+        }
+
+        .modal-header.bg-success {
+            background-color: #28a745;
+        }
+
+        .modal-header.bg-warning.text-dark {
+            background-color: #FFD700;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+        }
+
+        .modal-body p, .modal-body ul {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .modal-body ul li {
+            margin-bottom: 10px;
+        }
+
+        .btn-close {
+            background-color: transparent;
+            border: none;
+        }
+
+        /* Button hover animation */
+        .toggle-button i {
+            margin-right: 10px;
+        }
+
+        .fade {
+            transition: opacity 0.15s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center my-4 text-primary">Our AI System Results</h1>
+        <div class="result-container text-center">
+            <button class="toggle-button btn-lg" data-bs-toggle="modal" data-bs-target="#diseaseModal" style="background-color:#FF8C00;color:black;">
+                Disease <i class="fas fa-virus"></i>
+            </button>
+            <button class="toggle-button btn-lg" data-bs-toggle="modal" data-bs-target="#descriptionModal" style="background-color:#007BFF;color:white;">
+                Description <i class="fas fa-info-circle"></i>
+            </button>
+            <button class="toggle-button btn-lg" data-bs-toggle="modal" data-bs-target="#precautionModal" style="background-color:#FF1493;color:white;">
+                Precautions <i class="fas fa-shield-alt"></i>
+            </button>
+            <button class="toggle-button btn-lg" data-bs-toggle="modal" data-bs-target="#medicationsModal" style="background-color:#FF6347;color:white;">
+                Medications <i class="fas fa-pills"></i>
+            </button>
+            <button class="toggle-button btn-lg" data-bs-toggle="modal" data-bs-target="#workoutsModal" style="background-color:#32CD32;color:white;">
+                Workouts <i class="fas fa-dumbbell"></i>
+            </button>
+            <button class="toggle-button btn-lg" data-bs-toggle="modal" data-bs-target="#dietsModal" style="background-color:#FFD700;color:black;">
+                Diets <i class="fas fa-apple-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Disease Modal -->
+    <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="diseaseModalLabel">Predicted Disease</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">{{ predicted_disease }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">{{ dis_des }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Precaution Modal -->
+    <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="precautionModalLabel">Precautions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in my_precautions %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medications Modal -->
+    <div class="modal fade" id="medicationsModal" tabindex="-1" aria-labelledby="medicationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title" id="medicationsModalLabel">Medications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in medications %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workouts Modal -->
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="workoutsModalLabel">Workouts</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in workout %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diets Modal -->
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in my_diet %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endif %}
+
+    <!-- Modals (same as previous) -->
+
+    <!-- Features Section -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<style>
+    /* Features Section */
+    .features {
+        background: linear-gradient(to right, #5f2c82, #49a09d);
+        padding: 80px 0; /* Increased padding for more space */
+        color: white; /* White text for contrast */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle text shadow for titles */
+    }
+
+    .features .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .features h2 {
+        text-align: center;
+        font-size: 42px;
+        margin-bottom: 40px;
+        color: blue;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        animation: slideIn 1s ease-out;
+    }
+
+    /* Keyframe for slide-in animation */
+    @keyframes slideIn {
+        0% { transform: translateY(-20px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.3s ease;
+        text-align: center;
+        margin-bottom: 30px;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Keyframe for fade-in effect */
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .feature-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        background-color: #f0f8ff; /* Light blue background on hover */
+    }
+
+    .feature-card .icon {
+        font-size: 50px;
+        color: #ff6f61; /* Vibrant red icon color */
+        margin-bottom: 20px;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .feature-card:hover .icon {
+        color: #007bff; /* Blue icon color on hover */
+        transform: scale(1.2); /* Icon grows on hover */
+    }
+
+    .feature-card h5 {
+        font-size: 26px;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+    }
+
+    .feature-card p {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    .feature-card .btn {
+        background-color: #ff6f61; /* Vibrant button color */
+        color: #fff;
+        padding: 12px 30px;
+        font-size: 18px;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: background-color 0.4s ease, transform 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card .btn:hover {
+        background-color: #007bff;
+        transform: scale(1.05); /* Button scaling on hover */
+    }
+
+    /* Media Queries for Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .feature-card {
+            margin-bottom: 20px;
+        }
+
+        .features h2 {
+            font-size: 32px;
+        }
+
+        .feature-card .icon {
+            font-size: 45px;
+        }
+
+        .feature-card h5 {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<!-- Features Section -->
+<div class="features">
+    <div class="container">
+        <h2 class="section-title">Our Features</h2>
+        <div class="row">
+            <!-- Fast Diagnosis Feature -->
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                    <h5>Fast Diagnosis</h5>
+                    <p>Our AI-powered system delivers rapid, accurate diagnoses based on your symptoms, helping you get the care you need, faster.</p>
+                    <li class="btn"><a class="nav-link" href="/info">Learn more</a></li>
+                </div>
+            </div>
+            <!-- Expert Recommendations Feature -->
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-user-md"></i></div>
+                    <h5>Expert Recommendations</h5>
+                    <p>Receive expert insights and personalized advice for treatments, medication options, and healthcare plans tailored just for you.</p>
+                    <a href="#" class="btn">Discover More</a>
+                </div>
+            </div>
+            <!-- Personalized Health Plans Feature -->
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h5>Personalized Health Plans</h5>
+                    <p>Get a tailored health plan that covers diet, exercise, and lifestyle changes, specifically designed to meet your health goals.</p>
+                    <a href="#" class="btn">Start Today</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <footer>
+       <footer style="background: linear-gradient(135deg, #2C3E50, #34495E); color: white; padding: 50px 0; font-family: 'Arial', sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center;">
+        <!-- First Section: Copyright -->
+        <p style="font-size: 18px; margin-bottom: 20px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 16px;">
+            &copy; 2024 Health Care Center. All Rights Reserved.
+        </p>
+
+        <!-- Second Section: Links (Privacy Policy and Terms) -->
+        <div style="margin-bottom: 30px;">
+            <a href="/privacy-policy" style="color: #D4AC45; text-decoration: none; padding: 12px 20px; font-size: 14px; margin: 0 15px; border-radius: 30px; background-color: transparent; border: 2px solid #D4AC45; transition: all 0.3s ease; font-weight: bold; letter-spacing: 0.5px;">
+                Privacy Policy
+            </a>
+            <a href="/terms" style="color: #D4AC45; text-decoration: none; padding: 12px 20px; font-size: 14px; margin: 0 15px; border-radius: 30px; background-color: transparent; border: 2px solid #D4AC45; transition: all 0.3s ease; font-weight: bold; letter-spacing: 0.5px;">
+                Terms & Conditions
+            </a>
+        </div>
+
+        <!-- Third Section: Social Media Icons -->
+        <div style="margin-bottom: 30px;">
+            <a href="https://facebook.com" style="color: #BDC3C7; font-size: 26px; margin: 0 15px; transition: transform 0.3s ease;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com" style="color: #BDC3C7; font-size: 26px; margin: 0 15px; transition: transform 0.3s ease;">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com" style="color: #BDC3C7; font-size: 26px; margin: 0 15px; transition: transform 0.3s ease;">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com" style="color: #BDC3C7; font-size: 26px; margin: 0 15px; transition: transform 0.3s ease;">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
+
+        <!-- Fifth Section: Contact Information -->
+        <div style="font-size: 16px; color: #BDC3C7; margin-bottom: 30px;">
+            <p>For inquiries, reach us at: <a href="mailto:contact@healthcarecenter.com" style="color: #D4AC45; text-decoration: none;">contact@healthcarecenter.com</a></p>
+            <p>Phone: 99404 45672</p>
+        </div>
+    </div>
+
+    <!-- Scroll-to-top Button -->
+    <button id="scrollToTopBtn" onclick="scrollToTop()" style="position: fixed; bottom: 20px; right: 20px; background-color: #1ABC9C; color: white; border: none; padding: 15px; border-radius: 50%; font-size: 18px; display: none; cursor: pointer; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); transition: background-color 0.3s ease;">
+        ↑
+    </button>
+</footer>
+
+<!-- Scroll-to-top Button Script -->
+<script>
+    // Show scroll-to-top button when user scrolls down
+    window.onscroll = function() {
+        var button = document.getElementById("scrollToTopBtn");
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            button.style.display = "block";
+        } else {
+            button.style.display = "none";
+        }
+    };
+
+    // Scroll to top function
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+    </footer>
+
+    <script>
+        const startSpeechRecognitionButton = document.getElementById('startSpeechRecognition');
+        const transcriptionDiv = document.getElementById('transcription');
+
+        startSpeechRecognitionButton.addEventListener('click', startSpeechRecognition);
+
+        function startSpeechRecognition() {
+            const recognition = new webkitSpeechRecognition();
+
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function (event) {
+                const result = event.results[0][0].transcript;
+                transcriptionDiv.textContent = result;
+            };
+
+            recognition.onend = function () {
+                console.log('Speech recognition ended.');
+            };
+
+            recognition.start();
+
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+
+</html>
