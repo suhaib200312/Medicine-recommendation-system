@@ -1,11 +1,16 @@
-fro as pd
+from flask import Flask, request, render_template, jsonify  # Import jsonify
+import numpy as np
+import pandas as pd
 import pickle
+import sklearn
+import mysql.connector
 
 
-# flask appm flask import Flask, request, render_template, jsonify  # Import jsonify
-# import numpy as np
-# import pandas
-app = Flask(__name__)
+
+# flask app
+app = Flask(_name_)
+
+
 
 # load databasedataset===================================
 sym_des = pd.read_csv("datasets/symtoms_df.csv")
@@ -51,46 +56,119 @@ def get_predicted_value(patient_symptoms):
         input_vector[symptoms_dict[item]] = 1
     return diseases_list[svc.predict([input_vector])[0]]
 
+def get_db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="admin123",  # Replace this
+        database="homecare"
+    )
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("INSERT INTO users (name, phone) VALUES (%s, %s)", (name, phone))
+            conn.commit()
+            return jsonify({'success': True})
+        except mysql.connector.IntegrityError:
+            return jsonify({'success': False, 'message': 'Phone already exists'})
+        finally:
+            cursor.close()
+            conn.close()
+    return render_template("signup.html")
+
+
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # ✅ This is the line you asked about
+        cursor.execute("SELECT * FROM users WHERE name = %s AND phone = %s", (name, phone))
+        user = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if user:
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'message': 'Invalid credentials'})
+
+    return render_template("intro.html")
+
 
 
 
 # creating routes========================================
+@app.route('/')
+def bloggg():
+    return render_template("intro.html")
 
+@app.route('/signup')
+def bloghhg():
+    return render_template("signup.html")
 
-@app.route("/")
+@app.route("/open")
 def index():
-    return render_template("index.html")
+    return render_template("open.html")
+
+
+@app.route("/expert")
+def indexx():
+    return render_template("expert.html")
 
 # Define a route for the home page
 @app.route('/predict', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         symptoms = request.form.get('symptoms')
-        # mysysms = request.form.get('mysysms')
-        # print(mysysms)
-        print(symptoms)
-        if symptoms =="Symptoms":
-            message = "Please either write symptoms or you have written misspelled symptoms"
-            return render_template('index.html', message=message)
-        else:
+        print("Received symptoms: ", symptoms)
 
+        if symptoms == "Symptoms" or not symptoms:
+            message = "Please provide valid symptoms. Ensure they are spelled correctly."
+            return render_template('open.html', message=message)
+        else:
             # Split the user's input into a list of symptoms (assuming they are comma-separated)
             user_symptoms = [s.strip() for s in symptoms.split(',')]
-            # Remove any extra characters, if any
+            # Remove extra characters and validate the symptoms
             user_symptoms = [symptom.strip("[]' ") for symptom in user_symptoms]
+
+            # Log the cleaned symptoms for debugging
+            print("Cleaned symptoms: ", user_symptoms)
+
+            # Validate that all user symptoms are in the symptoms_dict
+            invalid_symptoms = [s for s in user_symptoms if s not in symptoms_dict]
+            if invalid_symptoms:
+                message = f"The following symptoms are invalid or not recognized: {', '.join(invalid_symptoms)}"
+                return render_template('open.html', message=message)
+
+            # Predict the disease using the cleaned symptoms
             predicted_disease = get_predicted_value(user_symptoms)
+            print(f"Predicted disease: {predicted_disease}")
+
+            # Fetch additional data for the predicted disease
             dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
 
-            my_precautions = []
-            for i in precautions[0]:
-                my_precautions.append(i)
+            # Convert precautions to a list of strings
+            my_precautions = [precaution for precaution in precautions[0]]
 
-            return render_template('index.html', predicted_disease=predicted_disease, dis_des=dis_des,
+            return render_template('open.html', predicted_disease=predicted_disease, dis_des=dis_des,
                                    my_precautions=my_precautions, medications=medications, my_diet=rec_diet,
                                    workout=workout)
 
-    return render_template('index.html')
-
+    return render_template('open.html')
 
 
 # about view funtion and path
@@ -112,7 +190,23 @@ def developer():
 def blog():
     return render_template("blog.html")
 
+@app.route('/info')
+def blogg():
+    return render_template("info.html")
 
-if __name__ == '__main__':
+@app.route('/contactt')
+def blosss():
+    return render_template("contactt.html")
+
+
+@app.route('/privacy-policy')
+def bloas():
+    return render_template("privacy-policy.html")
+
+@app.route('/terms')
+def blff():
+    return render_template("terms.html")
+
+if _name_ == '_main_':
 
     app.run(debug=True)
